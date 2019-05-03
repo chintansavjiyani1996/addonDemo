@@ -1,31 +1,38 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList,AsyncStorag,Dimensions,StatusBar} from 'react-native';
 import {demoData} from "../Demodata";
+import {inject} from "mobx-react";
 
 
-const deviceWidth = Dimensions.get('window').width
+const deviceWidth = Dimensions.get('window').width;
 
+
+@inject('rootStore')
 export default class DashboardScreen extends React.Component {
+    static navigationOptions ={
+        header:null
+    }
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={styles.container}>
                 {this.renderHeader()}
                 {this.renderList()}
             </View>
         );
     }
 
-    onPressItem=(item)=>{
-      this.pops.naviation.navigate('placeDetails')
+    onPressItem=({item})=>{
+        this.props.rootStore.dashboardStore.setSelectVisitingPlace(item);
+      this.props.navigation.navigate('placeDetails');
     };
 
     _renderItem = ({item}) => {
         return (
-            <TouchableOpacity onPress={this.OnPressItem} style={{borderWidth: 1,marginVertical: 20,marginHorizontal: 20,borderRadius:4}}>
-                <Text style={{fontSize:22,marginVertical:10,textAlign: "center"}}>
+            <TouchableOpacity onPress={this.onPressItem} style={styles.renderItemOuterViewStyle}>
+                <Text style={styles.renderTitleStyle}>
                     {item.title}
                 </Text>
-                <Image source={{uri:item.img}} style={{height:200 ,width:"100%"}}/>
+                <Image source={{uri:item.img}} style={styles.renderItemImageStyle}/>
                 <Text>{item.description}
                 </Text>
             </TouchableOpacity>
@@ -36,10 +43,10 @@ export default class DashboardScreen extends React.Component {
 
     renderList = () => {
         return (
-            <View style={{flex: 0.9}}>
-                <Text style={{fontSize: 26,textAlign: "center"}}>Visiting places</Text>
+            <View style={styles.listOuterViewStyle}>
+                <Text style={styles.listTextStyle}>Visiting places</Text>
                 <FlatList
-                    data={demoData.data}
+                    data={this.props.rootStore.dashboardStore.visitingPlaceList}
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
@@ -55,10 +62,10 @@ export default class DashboardScreen extends React.Component {
 
     renderHeader = () => {
         return (
-            <View style={{flex: 0.1, flexDirection: "row",backgroundColor:"blue",marginTop:StatusBar.currentHeight , alignItems: "center",justifyContent: "space-between"}}>
-                <Text style={{color:"white",fontSize:22,marginHorizontal: 20}}>Dashboard</Text>
+            <View style={styles.headerOuterViewStyle}>
+                <Text style={styles.headerTextStyle}>Dashboard</Text>
                 <TouchableOpacity onPress={this.onPressLogout}>
-                    <Image source={require('../assets/logout.png')} style={{height:23,width:23,tintColor:"white",marginHorizontal: 20}}/>
+                    <Image source={require('../assets/logout.png')} style={styles.headerImageStyle}/>
                 </TouchableOpacity>
             </View>
 
@@ -66,3 +73,50 @@ export default class DashboardScreen extends React.Component {
     }
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    headerOuterViewStyle:{
+        flex: 0.1,
+        flexDirection: "row",
+        backgroundColor:"blue",
+        marginTop:StatusBar.currentHeight ,
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerTextStyle:{
+        color:"white",
+        fontSize:22,
+        marginHorizontal: 20
+    },
+    headerImageStyle:{
+        height:23,
+        width:23,
+        tintColor:"white",
+        marginHorizontal: 20
+    },
+    listOuterViewStyle:{
+        flex: 0.9
+    },
+    listTextStyle:{
+        fontSize: 26,
+        textAlign: "center"
+    },
+    renderItemOuterViewStyle:{
+        borderWidth: 1,
+        marginVertical: 20,
+        marginHorizontal: 20,
+        borderRadius:4
+    },
+    renderTitleStyle:{
+        fontSize:22,
+        marginVertical:10,
+        textAlign: "center"
+    },
+    renderItemImageStyle:{
+        height:200 ,
+        width:"100%"
+    }
+});

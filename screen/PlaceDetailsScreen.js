@@ -1,7 +1,11 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
+import {inject} from "mobx-react";
+@inject('rootStore')
 export default class PlaceDetailsScreen extends React.Component {
+    static navigationOptions ={
+        header:null
+    };
     render() {
         return (
         <View style={{flex:1}}>
@@ -24,14 +28,15 @@ export default class PlaceDetailsScreen extends React.Component {
     }
 
     renderContent=()=>{
+        console.log(this.props)
         return(
             <View style={{borderWidth: 1,marginVertical: 20,marginHorizontal: 20,borderRadius:4}}>
                 <Text style={{fontSize:22,marginVertical:10,textAlign: "center"}}>
                     {"Vastrapur lack"}
                 </Text>
-                <Image source={{uri:item.img}} style={{height:200 ,width:"100%"}}/>
-                <Text>{item.description}
-                </Text>
+                {/*<Image source={{uri:item.img}} style={{height:200 ,width:"100%"}}/>*/}
+                {/*<Text>{item.description}*/}
+                {/*</Text>*/}
             </View>
         )
     }
