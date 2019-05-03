@@ -21,19 +21,20 @@ export default class DashboardScreen extends React.Component {
         );
     }
 
-    onPressItem=({item})=>{
+    onPressItem=(item)=>{
         this.props.rootStore.dashboardStore.setSelectVisitingPlace(item);
       this.props.navigation.navigate('placeDetails');
     };
 
     _renderItem = ({item}) => {
         return (
-            <TouchableOpacity onPress={this.onPressItem} style={styles.renderItemOuterViewStyle}>
+            <TouchableOpacity onPress={()=>this.onPressItem(item)} style={styles.renderItemOuterViewStyle}>
                 <Text style={styles.renderTitleStyle}>
                     {item.title}
                 </Text>
                 <Image source={{uri:item.img}} style={styles.renderItemImageStyle}/>
-                <Text>{item.description}
+                <Text>{item.description.length>100? (((item.description).substring(0, 100 - 3)) + '...') :
+                    item.description}
                 </Text>
             </TouchableOpacity>
         )
