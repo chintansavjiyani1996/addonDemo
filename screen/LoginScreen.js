@@ -47,7 +47,7 @@ class LoginScreen extends React.Component {
             } else {
             this.props.rootStore.authStore.onLogin((async (response) => {
                 if (response) {
-                    this.props.navigation.navigate("chatList");
+                    this.props.navigation.navigate("App");
                 }
             }));
         }
@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
                                         underlineColorAndroid="transparent"
                                         placeholder="Email"
                                         placeholderTextColor="#c3c3c3"
-                                        autoCapitalize="none"
+                                        autoCapitalize="none"a
                                         returnKeyType={"next"}
                                         blurOnSubmit={false}
                                         onSubmitEditing={() => this.password.focus()}

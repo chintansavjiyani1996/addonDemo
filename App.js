@@ -6,11 +6,6 @@ import {RootStore} from "./store/RootStore";
 import DashboardScreen from "./screen/DashboardScreen";
 
 export default class App extends React.Component {
-  componentDidMount()
-  {
-AsyncStorage.setItem("userToken","sdksadajkhjs")
-// AsyncStorage.clear()
-  }
 
   render() {
 

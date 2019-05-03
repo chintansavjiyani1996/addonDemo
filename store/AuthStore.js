@@ -1,5 +1,6 @@
 import {observable, action, toJS} from "mobx";
 import Api from "../Api/Api";
+import {AsyncStorage} from "react-native";
 
 export class AuthStore {
 
@@ -21,8 +22,13 @@ export class AuthStore {
 
     @action
     onLogin(callback) {
-        this.api.userApi.loginApi(toJS(this.loginFormData)).then((response)=>{
-            callback()
+       let data= new FormData();
+        data.append("mail_id",this.loginFormData.email);
+        data.append("password",this.loginFormData.password);
+        data.append("function",this.loginFormData.function);
+        this.api.userApi.loginApi(data).then((response)=>{
+            AsyncStorage.setItem("userToken","token");
+            callback(true)
         }).catch((error)=>{
             console.log(error)
         });
