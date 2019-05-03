@@ -1,26 +1,28 @@
-export class Networking{
+export class Network{
     static post=(url,formData)=>{
         return fetch(url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                'x-auth':"WKx0V4aULbHT8gf6i4fgDA&gws"
             },
-            body: formData,
-        }).then(Networking.handelMessage).then((response) => response.json()).catch((error)=>{
-            return Promise.reject(error)
+            body:JSON.stringify(formData) ,
+        }).then(Network.handelMessage).then((response) => response.json()).catch((error)=>{
+           console.log("err",error)
+            // return Promise.reject(error)
         })
     };
 
     static get=(url)=>{
-        console.log(" --->url " ,url );
         return fetch(url, {
             method: 'get',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                'x-auth':"WKx0V4aULbHT8gf6i4fgDA&gws"
             },
-        }).then(Networking.handelMessage).then((response) => response.json()).catch((error)=>{
+        }).then(Network.handelMessage).then((response) => response.json()).catch((error)=>{
             return Promise.reject(error)
         })
     };

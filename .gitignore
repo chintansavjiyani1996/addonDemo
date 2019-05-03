@@ -5,3 +5,8 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+.idea/misc.xml
+.idea/addonDemo.iml
+.idea/vcs.xml
+.idea/modules.xml
+*.xml

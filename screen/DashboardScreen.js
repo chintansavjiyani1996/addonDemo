@@ -1,17 +1,31 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList,AsyncStorag,Dimensions,StatusBar} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Image,
+    FlatList,
+    AsyncStorage,
+    Dimensions,
+    StatusBar
+} from 'react-native';
 import {demoData} from "../Demodata";
-import {inject} from "mobx-react";
-
-
+import {inject,observer} from "mobx-react";
 const deviceWidth = Dimensions.get('window').width;
 
 
 @inject('rootStore')
+@observer
 export default class DashboardScreen extends React.Component {
-    static navigationOptions ={
-        header:null
+    static navigationOptions = {
+        header: null
+    };
+
+    async componentDidMount() {
+        await this.props.rootStore.dashboardStore.getDashBoardData()
     }
+
     render() {
         return (
             <View style={styles.container}>
@@ -21,19 +35,19 @@ export default class DashboardScreen extends React.Component {
         );
     }
 
-    onPressItem=(item)=>{
+    onPressItem = (item) => {
         this.props.rootStore.dashboardStore.setSelectVisitingPlace(item);
-      this.props.navigation.navigate('placeDetails');
+        this.props.navigation.navigate('placeDetails');
     };
 
     _renderItem = ({item}) => {
         return (
-            <TouchableOpacity onPress={()=>this.onPressItem(item)} style={styles.renderItemOuterViewStyle}>
+            <TouchableOpacity onPress={() => this.onPressItem(item)} style={styles.renderItemOuterViewStyle}>
                 <Text style={styles.renderTitleStyle}>
                     {item.title}
                 </Text>
-                <Image source={{uri:item.img}} style={styles.renderItemImageStyle}/>
-                <Text>{item.description.length>100? (((item.description).substring(0, 100 - 3)) + '...') :
+                <Image source={{uri: item.img}} style={styles.renderItemImageStyle}/>
+                <Text>{item.description.length > 100 ? (((item.description).substring(0, 100 - 3)) + '...') :
                     item.description}
                 </Text>
             </TouchableOpacity>
@@ -57,7 +71,7 @@ export default class DashboardScreen extends React.Component {
 
     onPressLogout = () => {
         AsyncStorage.clear();
-        this.props.naviagtion.navigate("Auth")
+        this.props.navigation.navigate("Auth")
 
     };
 
@@ -79,45 +93,45 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    headerOuterViewStyle:{
+    headerOuterViewStyle: {
         flex: 0.1,
         flexDirection: "row",
-        backgroundColor:"blue",
-        marginTop:StatusBar.currentHeight ,
+        backgroundColor: "blue",
+        marginTop: StatusBar.currentHeight,
         alignItems: "center",
         justifyContent: "space-between"
     },
-    headerTextStyle:{
-        color:"white",
-        fontSize:22,
+    headerTextStyle: {
+        color: "white",
+        fontSize: 22,
         marginHorizontal: 20
     },
-    headerImageStyle:{
-        height:23,
-        width:23,
-        tintColor:"white",
+    headerImageStyle: {
+        height: 23,
+        width: 23,
+        tintColor: "white",
         marginHorizontal: 20
     },
-    listOuterViewStyle:{
+    listOuterViewStyle: {
         flex: 0.9
     },
-    listTextStyle:{
+    listTextStyle: {
         fontSize: 26,
         textAlign: "center"
     },
-    renderItemOuterViewStyle:{
+    renderItemOuterViewStyle: {
         borderWidth: 1,
         marginVertical: 20,
         marginHorizontal: 20,
-        borderRadius:4
+        borderRadius: 4
     },
-    renderTitleStyle:{
-        fontSize:22,
-        marginVertical:10,
+    renderTitleStyle: {
+        fontSize: 22,
+        marginVertical: 10,
         textAlign: "center"
     },
-    renderItemImageStyle:{
-        height:200 ,
-        width:"100%"
+    renderItemImageStyle: {
+        height: 200,
+        width: "100%"
     }
 });

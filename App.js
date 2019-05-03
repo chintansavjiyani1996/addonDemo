@@ -9,6 +9,7 @@ export default class App extends React.Component {
   componentDidMount()
   {
 AsyncStorage.setItem("userToken","sdksadajkhjs")
+// AsyncStorage.clear()
   }
 
   render() {

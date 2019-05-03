@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View,ScrollView} from 'react-native';
+import {Image, StyleSheet,StatusBar, Text, TouchableOpacity, View,ScrollView} from 'react-native';
 import {inject,observer} from "mobx-react";
-import {toJS} from "mobx";
 @inject('rootStore')
 @observer
 export default class PlaceDetailsScreen extends React.Component {
@@ -13,9 +12,22 @@ export default class PlaceDetailsScreen extends React.Component {
         <View style={{flex:1}}>
             {this.renderHeader()}
             {this.renderContent()}
+            {this.renderMapButton()}
         </View>
         );
     }
+    onPressMap=()=>{
+      this.props.navigation.navigate("mapScreen")
+    };
+
+
+    renderMapButton=()=>{
+      return(
+          <TouchableOpacity onPress={this.onPressMap} style={{flex:0.1,backgroundColor:"blue",alignItems:"center",justifyContent: "center"}}>
+              <Text style={{fontSize:20,color: "white"}}>Open In Map</Text>
+          </TouchableOpacity>
+      )
+    };
 
     onPressGoBack=()=>{
       this.props.navigation.goBack()
@@ -23,19 +35,19 @@ export default class PlaceDetailsScreen extends React.Component {
 
     renderHeader = () => {
         return (
-            <View style={{flex: 0.1, flexDirection: "row",backgroundColor:"blue", alignItems: "center"}}>
+            <View style={{flex: 0.1,paddingVertical:8, marginTop: StatusBar.currentHeight,flexDirection: "row",backgroundColor:"blue", alignItems: "center"}}>
                 <TouchableOpacity onPress={this.onPressGoBack}>
-                    <Image source={require('../assets/logout.png')} style={{height:23,width:23,tintColor:"black"}}/>
+                    <Image source={require('../assets/backArrow.png')} style={{height:23,marginHorizontal: 10,width:23,tintColor:"white",alignSelf: "center"}}/>
                 </TouchableOpacity>
-                <Text>Details</Text>
+                <Text style={{color:"white",marginHorizontal: 10,fontSize: 22}}>Details</Text>
             </View>
 
         )
-    }
+    };
 
     renderContent=()=>{
         return(
-            <ScrollView style={{borderWidth: 1,marginVertical: 20,marginHorizontal: 20,borderRadius:4,flex:0.9}}>
+            <ScrollView style={{borderWidth: 1,marginVertical: 20,marginHorizontal: 20,borderRadius:4,flex:0.8}}>
                 <Text style={{fontSize:22,marginVertical:10,textAlign: "center"}}>
                     {this.props.rootStore.dashboardStore.selectedPlace.title}
                 </Text>

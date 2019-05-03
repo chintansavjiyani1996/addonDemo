@@ -1,1 +1,1 @@
-export const  API_COMMON_URL="sas"
+export const  API_COMMON_URL="http://addonwebsolutions.net/mychatapp";
