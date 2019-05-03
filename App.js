@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import AppNavigator from './AppNavigator';
+import {Provider} from "mobx-react";
+import {RootStore} from "./store/RootStore";
+import DashboardScreen from "./screen/DashboardScreen";
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+        <Provider rootStore={new RootStore()}>
+          <AppNavigator/>
+        </Provider>
     );
   }
 }
