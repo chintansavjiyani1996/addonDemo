@@ -6,8 +6,8 @@ export class AuthStore {
 
     @observable loginFormData = {
         function:'login',
-        email: "mitesh@addonwebsolutions.com",
-        password: "12345"
+        email: "",
+        password: ""
     };
 
     constructor(rootStore) {
@@ -23,7 +23,7 @@ export class AuthStore {
     @action
     onLogin(callback) {
        let data= new FormData();
-        data.append("mail_id",this.loginFormData.email);
+        data.append("mail_id",this.loginFormData.email.toLowerCase());
         data.append("password",this.loginFormData.password);
         data.append("function",this.loginFormData.function);
         this.api.userApi.loginApi(data).then((response)=>{

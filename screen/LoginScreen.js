@@ -40,7 +40,7 @@ class LoginScreen extends React.Component {
     onPressLogin = () => {
         let {authStore} = this.props.rootStore;
         Keyboard.dismiss();
-        if (!emailReg.test(authStore.loginFormData.email)) {
+        if (!emailReg.test(authStore.loginFormData.email.trim())) {
             Alert.alert("", "Enter Valid email");
         } else if (authStore.loginFormData.password === null || !password.test(authStore.loginFormData.password)) {
             Alert.alert("", "Enter Valid Password");
@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
                                         underlineColorAndroid="transparent"
                                         placeholder="Email"
                                         placeholderTextColor="#c3c3c3"
-                                        autoCapitalize="none"a
+                                        autoCapitalize="none"
                                         returnKeyType={"next"}
                                         blurOnSubmit={false}
                                         onSubmitEditing={() => this.password.focus()}
@@ -110,9 +110,6 @@ class LoginScreen extends React.Component {
                                                onSubmitEditing={() => this.onPressLogin()}
                                     />
                                 </View>
-                                <View style={loginScreenStyles.forgetPassWordStyle}>
-                                </View>
-
                                 <TouchableOpacity
                                     style={loginScreenStyles.loginButtonStyle}
                                     onPress={this.onPressLogin}

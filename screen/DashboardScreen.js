@@ -10,9 +10,7 @@ import {
     Dimensions,
     StatusBar
 } from 'react-native';
-import {demoData} from "../Demodata";
 import {inject,observer} from "mobx-react";
-const deviceWidth = Dimensions.get('window').width;
 
 
 @inject('rootStore')

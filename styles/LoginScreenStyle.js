@@ -43,13 +43,8 @@ export const loginScreenStyles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
     },
-    forgetPassWordStyle: {
-        paddingLeft: 15,
-        paddingBottom: 10,
-        flexDirection:"row"
-    },
     loginButtonStyle: {
-        backgroundColor: "#00DC95",
+        backgroundColor: "blue",
         padding: 10,
         margin: 15,
         height: 40,
@@ -63,9 +58,6 @@ export const loginScreenStyles = StyleSheet.create({
         borderRadius: 8,
         margin: 15
     },
-    textInputOuterStyleDeActive:{
-        margin: 15
-    },
     loginTextStyle:{
         color: 'white',
         alignItems: "center",
@@ -73,8 +65,4 @@ export const loginScreenStyles = StyleSheet.create({
     }
 });
 
-export const IMAGE_HEIGHT = deviceWidth/9.2225;
-export const IMAGE_WIDTH = deviceWidth/1.7;
 
-export const IMAGE_HEIGHT_SMALL =  deviceWidth/13.833375;
-export const IMAGE_WIDTH_SMALL = deviceWidth/2.55;
